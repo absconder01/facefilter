@@ -1,13 +1,20 @@
-FROM python:3.10-slim
+FROM python:3.9-slim
 
-WORKDIR /app
-
-# libGL.so.1 hatasını çözecek ek paketler
+# Install system dependencies for dlib
 RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
+    build-essential \
+    cmake \
+    pkg-config \
+    libx11-dev \
+    libatlas-base-dev \
+    libgtk-3-dev \
+    libboost-python-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Install dlib separately
+RUN pip install dlib==19.24.0
+
+WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
