@@ -11,9 +11,6 @@ RUN apt-get update && apt-get install -y \
     libboost-python-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install dlib separately
-RUN pip install dlib==19.24.0
-
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
